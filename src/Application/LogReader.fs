@@ -6,6 +6,7 @@ module LogReader =
     open System
     open System.IO
     open System.Globalization
+    open System.Reactive.Threading.Tasks
     
     let private openFile (FileName(fileName)) =
         try
@@ -75,21 +76,22 @@ module LogReader =
                 |> Success)
 
     let private readBatchLines count (stream : StreamReader) =
-        let mutable i = 0
-        let rows = 
-            seq {
-                while i < count && not stream.EndOfStream do
-                    i <- i + 1
-                    yield stream.ReadLine()
-            }
-            |> Seq.toList
-        Logger.infofn "read batch, %i rows" rows.Length
-        rows
+        async {
+            let mutable i = 0
+            let mutable rows = []
+            while rows.Length < count && not stream.EndOfStream do
+                i <- i + 1
+                let! r = stream.ReadLineAsync() |> Async.AwaitTask
+                rows <- r :: rows
+            Logger.infofn "read batch, %i rows" rows.Length
+            return rows
+        }
 
-    let private readBatch count (stream : StreamReader) : Result<LogRow list> = 
-        stream
-        |> readBatchLines count
-        |> Result.traverseA parseRow
+    let private readBatch count (stream : StreamReader) : Async<Result<LogRow list>> =
+        async {
+            let! rows = stream |> readBatchLines count
+            return rows |> Result.traverseA parseRow
+        }
 
 
     let loadLogs fileName (query : LogQuery) : Store<LogsPage> = 
@@ -142,7 +144,8 @@ module LogReader =
                     while not r.EndOfStream && count < query.MaxRowsToLoad do
                         let rowsToRead = Math.Min(maxBatchSize, int32 (query.MaxRowsToLoad - count))
                         
-                        let page = r |> readBatch rowsToRead |> getPage
+                        let! batch = (r |> readBatch rowsToRead |> Async.StartAsTask).ToObservable()
+                        let page = batch |> getPage
                         
                         count <- count + (uint32 page.NewLogs.Length)
                         Logger.infofn "Loaded %i rows" count
