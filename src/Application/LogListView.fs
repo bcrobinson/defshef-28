@@ -16,8 +16,8 @@ module LogListViewEx =
     let defaultViewModel = 
         { CurrentQuery = None
           Logs = []
-          Loading = true
-          ShowEmptyLoading = true
+          Loading = false
+          ShowEmptyLoading = false
           LoadErrors = [||] }
     
     let private stateMapper currentVm (logsUpdate : LogsPage) =
@@ -43,7 +43,9 @@ module LogListViewEx =
 
         match logsUpdate.Status with
         | NotStarted ->
-            currentVm
+            { currentVm with
+                ShowEmptyLoading = false
+                Loading = false }
         | LoadStarted ->
             resetRows currentVm [] logsUpdate.CurrentQuery
         | Loading when currentVm.CurrentQuery = Some(logsUpdate.CurrentQuery) ->

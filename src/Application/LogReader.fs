@@ -98,7 +98,7 @@ module LogReader =
             | Some(d) -> row.Timestamp <= d
             | None -> true
 
-        let satifiesFilter filter row =
+        let satifiesFilter row filter =
             let contains field value = 
                 if String.IsNullOrWhiteSpace(value) then
                     true
@@ -120,8 +120,14 @@ module LogReader =
             | Include -> isMatch
             | Exclude -> not isMatch
 
+        let nonEmptyFilters =
+            query.Filters
+            |> Seq.map (fun f -> f.Value) 
+            |> Seq.filter(fun f -> not (String.IsNullOrWhiteSpace(f.Value)))
+            |> Seq.toList
+
         let satisfiesFilters row =
-            query.Filters |> Seq.toList |> List.forall (fun f -> satifiesFilter f.Value row)
+            nonEmptyFilters |> List.forall (satifiesFilter row)
 
         let rowSatisfiesQuery row =
             satisfiesFrom row && 

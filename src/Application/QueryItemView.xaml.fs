@@ -48,7 +48,7 @@ module QueryItemViewEx =
             match item with
             | Include -> "Include"
             | Exclude -> "Exclude"
-        
+
         let typeObservable = 
             view.FilterTypeCombo |> ComboBox.createObservable [ Include; Exclude ] itemToText
 
@@ -67,8 +67,6 @@ module QueryItemViewEx =
                      Field = f
                      Value = v })
             |> Observable.subscribe (fun i -> filterSubject.OnNext(i))
-
-        view.Unloaded.Add(fun _ -> queryObs.Dispose())
 
         filterSubject 
         |> Observable.whenDifferent

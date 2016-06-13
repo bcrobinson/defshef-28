@@ -31,7 +31,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="117" />
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="135" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
@@ -54,9 +54,9 @@
                                    Interval="200"
                                    Maximum="5000"
                                    Minimum="0"
-                                   Value="{Binding MaxRowsToLoad, Mode=OneWay}"
+                                   Value="{Binding MaxRowsToLoad,
+                                                   Mode=OneWay}"
                                    d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
-
 
         <TextBlock Grid.Row="2"
                    Margin="0,8,0,12"
@@ -76,13 +76,13 @@
                         Margin="5"
                         d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
 
-
         <ItemsControl x:Name="FilterItems"
                       Grid.Row="3"
                       Grid.ColumnSpan="4"
                       MinHeight="10"
                       Margin="5"
                       d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+        
         <Grid Grid.Row="4"
               Grid.Column="2"
               Grid.ColumnSpan="2"

@@ -53,9 +53,12 @@ type LogQuery =
 
     static member AddFilter filter query =
         let idx = 
-            query.Filters
-            |> Seq.map(fun f -> f.Key)
-            |> Seq.max
+            match query.Filters.Count with
+            | 0 -> 0
+            | _ -> 
+                (query.Filters
+                |> Seq.map(fun f -> f.Key)
+                |> Seq.max) + 1
 
         { query with Filters = query.Filters.Add(idx, filter) }
 
