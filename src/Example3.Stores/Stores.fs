@@ -25,6 +25,7 @@ type Store<'a> =
 type Action<'a, 'b> =
     | Action of ('a -> Store<'b>)
 
+
 module Store =
     let createStore<'a when 'a : equality> initialState =
         let subject = new Subject<Update<'a>>()

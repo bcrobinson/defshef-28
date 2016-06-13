@@ -9,3 +9,4 @@ module IncrementViewEx =
     let getObservable (view : IncrementView) =
         view.IncrementButton.Click
         |> Observable.scan (fun state _ -> state + 1) 1
+

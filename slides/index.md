@@ -311,6 +311,35 @@ An implementation of FRP based around IObservable<'a>
 
 ---
 
-## Example 3 - Observables
+## Example 2 - Observables
 
 ***
+
+## Stores
+
+Putting this all together to create domain specific types
+
+####
+    type Store<'a> = | Store of IObservable<'a>
+
+    type Update<'a> = | Update of ('a -> 'a)
+
+    type StoreUpdate<'a> = | StoreUpdate of (Update<'a> -> unit)
+
+####
+    module Store =
+        let createStore<'a> initialState
+            : StoreUpdate<'a> * Store<'a>
+
+        let map f (store : Store<'a>) : Store<'b>
+
+        let combine2 fn (storeA, storeB) : Store<'c>
+
+        let connectToUpdate (update : StoreUpdate<a'>)
+            (store : Store<a'>)
+
+        let subscribe f (store :(Store<'a>)
+---
+
+## Example 3 - Stores
+
