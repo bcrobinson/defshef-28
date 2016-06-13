@@ -1,0 +1,37 @@
+<MahControls:MetroWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:MahControls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:e="clr-namespace:Example;assembly=Example"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                         Title="Example"
+                         Width="1024"
+                         Height="700"
+                         WindowStartupLocation="CenterScreen"
+                         WindowState="Maximized"
+                         mc:Ignorable="d">
+    <MahControls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </MahControls:MetroWindow.Resources>
+
+    <Border HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            BorderBrush="Black"
+            BorderThickness="0.5">
+        <StackPanel MinWidth="200">
+            <e:OutputView x:Name="OutputView" Margin="10" />
+            <Separator Margin="10" />
+            <e:IncrementView x:Name="IncrementView" Margin="10" />
+            <e:TextInputView x:Name="TextInputView" Margin="10" />
+        </StackPanel>
+    </Border>
+</MahControls:MetroWindow>

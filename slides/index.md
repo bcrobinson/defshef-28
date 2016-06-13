@@ -241,9 +241,9 @@ Traditional programming
 ####
     let a = 10
     let b = a + 1
-    printfn "(1) b = %i" i
+    printfn "(1) b = %i" b
     let a = 11
-    printfn "(2) b = %i" i
+    printfn "(2) b = %i" b
 
 ```
 (1) b = 11
@@ -254,10 +254,10 @@ Reactive Programming
 
 ####
     let a = 10
-    let b = (observe a) + 1
-    printfn "(1) b = %i" i
+    let! b = (observe a) + 1
+    printfn "(1) b = %i" b
     let a = 11
-    printfn "(2) b = %i" i
+    printfn "(2) b = %i" b
 
 ```
 (1) b = 11
@@ -265,8 +265,52 @@ Reactive Programming
 ```
 'b' is not a single value, but a stream of values
 
+***
+
+## Reactive Extensions
+
+An implementation of FRP based around IObservable<'a>
+
+####
+    [lang=cs]
+    public interface IObservable<out T>
+    {
+        IDisposable Subscribe(IObserver<T> observer);
+    }
+
+    public interface IObserver<in T>
+    {
+        void OnNext(T value);
+        void OnError(Exception error);
+        void OnCompleted();
+    }
+
 ---
 
-## Example 2 - Observables
+### Examples
+
+####
+    // Subscribing
+    view.Button.Click
+    |> Observable.subscribe(fun _ -> doSomething())
+
+####
+    // Extending streams
+    view.ItemChanged
+    |> Observable(fun item -> mapItem i)
+    |> Observable.subscribe(fun i -> doSomething i)
+
+####
+    // Combining
+    let itemAUpdate = view.ItemAChanged
+    let itemBUpdate = view.ItemAChanged
+
+    (itemAUpdate, itemBUpdate)
+    |> Observable.combineLatest2 (fun a b -> combine a b)
+    |> Observable.subscribe(fun i -> doSomething i)
+
+---
+
+## Example 3 - Observables
 
 ***

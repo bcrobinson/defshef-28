@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{91df32cd-47ad-4fcd-a7a9-7e34aad9e36a}</ProjectGuid>
+    <ProjectGuid>{57a7e114-6f43-4f75-969c-9072cd2a0427}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>FSharpWpfMvvmTemplate.App</RootNamespace>
     <AssemblyName>Example</AssemblyName>
@@ -57,16 +57,24 @@
     </Content>
     <Content Include="packages.config" />
     <Compile Include="Properties.fs" />
-    <Resource Include="DisplayCountView.xaml">
+    <Compile Include="Observables.fs" />
+    <Compile Include="Stores.fs" />
+    <Compile Include="ExampleTypes.fs" />
+    <Resource Include="OutputView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
-    <Compile Include="DisplayCountView.xaml.fs" />
+    <Compile Include="OutputView.xaml.fs" />
     <Resource Include="IncrementView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
     <Compile Include="IncrementView.xaml.fs" />
+    <Resource Include="TextInputView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Compile Include="TextInputView.xaml.fs" />
     <Resource Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
