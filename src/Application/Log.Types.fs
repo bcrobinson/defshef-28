@@ -23,19 +23,16 @@ type FilterType =
 type FilterField = 
     | Host
     | Url
-    | ResponseCode
-    static member All = [ Host; Url; ResponseCode ]
-    
+    static member All = [ Host; Url; ]
     static member DisplayText = 
         function 
         | Host -> "Host"
         | Url -> "Url"
-        | ResponseCode -> "Response Code"
 
 type FilterItem = 
     { Type : FilterType
       Field : FilterField
-      Value : obj }
+      Value : string }
 
 type LogQuery =
     { From : DateTimeOffset option
@@ -73,6 +70,7 @@ type LogsPage =
     { LastUpdated : DateTimeOffset
       CurrentQuery : LogQuery
       NewLogs : LogRow list
+      SkippedLogs : UInt32
       Status: LoadStatus }
 
 type FetchLogs = LogQuery -> IObservable<LogsPage>

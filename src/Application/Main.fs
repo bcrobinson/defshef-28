@@ -10,7 +10,7 @@ module InitialState =
     let fileName = Option<FileName>.None
 
     let subscriptionLogQuery = 
-        { From = None
+        { From = DateTimeOffset.Parse("01/07/1995 00:20:00 -04:00") |> Some
           To = None
           MaxRowsToLoad = 200u
           Filters = Map.empty }
@@ -19,6 +19,7 @@ module InitialState =
         { LastUpdated = DateTimeOffset.MinValue
           CurrentQuery = subscriptionLogQuery
           NewLogs = []
+          SkippedLogs = 0u
           Status = LoadStatus.NotStarted }
 
 // Actions

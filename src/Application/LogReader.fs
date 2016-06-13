@@ -87,12 +87,57 @@ module LogReader =
             return rows
         }
 
+    let private filterRows query rows : LogRow list * uint32 =
+        let satisfiesFrom row =
+            match query.From with
+            | Some(d) -> row.Timestamp >= d
+            | None -> true
+
+        let satisfiesTo row =
+            match query.To with
+            | Some(d) -> row.Timestamp <= d
+            | None -> true
+
+        let satifiesFilter filter row =
+            let contains field value = 
+                if String.IsNullOrWhiteSpace(value) then
+                    true
+                else if String.IsNullOrWhiteSpace(field) then
+                    false
+                else
+                    field.ToUpperInvariant().Contains(value.ToUpperInvariant())
+            
+            let fieldValue = 
+                match filter.Field with
+                | FilterField.Host ->
+                    row.Host
+                | FilterField.Url ->
+                    row.Request.Url
+            
+            let isMatch = contains fieldValue filter.Value
+
+            match filter.Type with
+            | Include -> isMatch
+            | Exclude -> not isMatch
+
+        let satisfiesFilters row =
+            query.Filters |> Seq.toList |> List.forall (fun f -> satifiesFilter f.Value row)
+
+        let rowSatisfiesQuery row =
+            satisfiesFrom row && 
+            satisfiesTo row &&
+            satisfiesFilters row
+            
+        let filteredRows = 
+            rows |> List.filter rowSatisfiesQuery
+            
+        (filteredRows, uint32 (rows.Length - filteredRows.Length))
+
     let private readBatch count (stream : StreamReader) : Async<Result<LogRow list>> =
         async {
             let! rows = stream |> readBatchLines count
             return rows |> Result.traverseA parseRow
         }
-
 
     let loadLogs fileName (query : LogQuery) : Store<LogsPage> = 
         Logger.infofn "Start query load, maxCount:%i" query.MaxRowsToLoad
@@ -102,14 +147,17 @@ module LogReader =
             { LastUpdated = DateTimeOffset.UtcNow
               CurrentQuery = query
               NewLogs = []
+              SkippedLogs = 0u
               Status = LoadStatus.Error(errMsg) }
 
         let getPage =
             function
             | Success(rows) ->
+                let (filteredRows, skipped) = filterRows query rows
                 { LastUpdated = DateTimeOffset.UtcNow
                   CurrentQuery = query
-                  NewLogs = rows
+                  NewLogs = filteredRows
+                  SkippedLogs = skipped
                   Status = LoadStatus.Loading }
             | Fail(errors) ->
                 errorPage errors
@@ -119,12 +167,14 @@ module LogReader =
             { LastUpdated = DateTimeOffset.UtcNow
               CurrentQuery = query
               NewLogs = []
+              SkippedLogs = 0u
               Status = LoadStatus.LoadStarted }
 
         let finishPage() =
             { LastUpdated = DateTimeOffset.UtcNow
               CurrentQuery = query
               NewLogs = []
+              SkippedLogs = 0u
               Status = LoadStatus.Loaded }
 
         match (openFile fileName) with
@@ -145,10 +195,10 @@ module LogReader =
                         let rowsToRead = Math.Min(maxBatchSize, int32 (query.MaxRowsToLoad - count))
                         
                         let! batch = (r |> readBatch rowsToRead |> Async.StartAsTask).ToObservable()
-                        let page = batch |> getPage
+                        let page = getPage batch
                         
                         count <- count + (uint32 page.NewLogs.Length)
-                        Logger.infofn "Loaded %i rows" count
+                        Logger.infofn "Loaded %i rows, skipped:%i" count page.SkippedLogs
 
                         yield page
 
