@@ -226,7 +226,7 @@ Yes, but it doesn't look like f#
 
 ***
 
-## Example - Events
+## Example 1 - Events
 
 ***
 
@@ -264,5 +264,9 @@ Reactive Programming
 (2) b = 12
 ```
 'b' is not a single value, but a stream of values
+
+---
+
+## Example 2 - Observables
 
 ***

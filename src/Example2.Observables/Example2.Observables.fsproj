@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{e7d0f43a-5c83-4c3a-b711-c8bde9a635cf}</ProjectGuid>
+    <ProjectGuid>{91df32cd-47ad-4fcd-a7a9-7e34aad9e36a}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>FSharpWpfMvvmTemplate.App</RootNamespace>
     <AssemblyName>Example</AssemblyName>
@@ -57,6 +57,16 @@
     </Content>
     <Content Include="packages.config" />
     <Compile Include="Properties.fs" />
+    <Resource Include="DisplayCountView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Compile Include="DisplayCountView.xaml.fs" />
+    <Resource Include="IncrementView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
+    <Compile Include="IncrementViewView.xaml.fs" />
     <Resource Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

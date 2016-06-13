@@ -12,6 +12,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Application", "Application\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Example1.Events", "Example1.Events\Example1.Events.fsproj", "{E7D0F43A-5C83-4C3A-B711-C8BDE9A635CF}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Example2.Observables", "Example2.Observables\Example2.Observables.fsproj", "{91DF32CD-47AD-4FCD-A7A9-7E34AAD9E36A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -26,6 +28,10 @@ Global
 		{E7D0F43A-5C83-4C3A-B711-C8BDE9A635CF}.Debug|x86.Build.0 = Debug|x86
 		{E7D0F43A-5C83-4C3A-B711-C8BDE9A635CF}.Release|x86.ActiveCfg = Release|x86
 		{E7D0F43A-5C83-4C3A-B711-C8BDE9A635CF}.Release|x86.Build.0 = Release|x86
+		{91DF32CD-47AD-4FCD-A7A9-7E34AAD9E36A}.Debug|x86.ActiveCfg = Debug|x86
+		{91DF32CD-47AD-4FCD-A7A9-7E34AAD9E36A}.Debug|x86.Build.0 = Debug|x86
+		{91DF32CD-47AD-4FCD-A7A9-7E34AAD9E36A}.Release|x86.ActiveCfg = Release|x86
+		{91DF32CD-47AD-4FCD-A7A9-7E34AAD9E36A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

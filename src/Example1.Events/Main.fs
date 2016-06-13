@@ -1,4 +1,4 @@
-﻿module Example1.Main
+﻿module Example.Main
 
 let window = MainWindow()
 
