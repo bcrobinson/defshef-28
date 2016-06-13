@@ -223,3 +223,46 @@ Yes, but it doesn't look like f#
 
         member self.FetchData()
             this.Data <- Model.fetch self.Count
+
+***
+
+## Example - Events
+
+***
+
+So where does FRP come into this?
+
+---
+
+[What is Reactive Programming? - Paul Stovell](http://paulstovell.com/blog/reactive-programming)
+
+Traditional programming
+
+####
+    let a = 10
+    let b = a + 1
+    printfn "(1) b = %i" i
+    let a = 11
+    printfn "(2) b = %i" i
+
+```
+(1) b = 11
+(2) b = 11
+```
+
+Reactive Programming
+
+####
+    let a = 10
+    let b = (observe a) + 1
+    printfn "(1) b = %i" i
+    let a = 11
+    printfn "(2) b = %i" i
+
+```
+(1) b = 11
+(2) b = 12
+```
+'b' is not a single value, but a stream of values
+
+***
