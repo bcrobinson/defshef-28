@@ -3,6 +3,9 @@
 
 # DefShef 28 - A expirment in creating F&#35; UI application using FRP
 
-Sample logs can be found at [NASA-HTTP - Two Months of HTTP Logs from KSC-NASA](http://ita.ee.lbl.gov/html/contrib/NASA-HTTP.html)
+Sides can be found at [mintyben.github.io/defshef-28/](http://mintyben.github.io/defshef-28/)
 
+The application requires sample logs, these can be found at [NASA-HTTP - Two Months of HTTP Logs from KSC-NASA](http://ita.ee.lbl.gov/html/contrib/NASA-HTTP.html)
+
+Defshef homepage:
 [Defshef](https://defshef.github.io/)
