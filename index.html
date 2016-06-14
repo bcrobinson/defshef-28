@@ -721,6 +721,45 @@ But how do we interact with business logic (e.g. read files, call http methods)<
 <h2>Example 4 - Actions</h2>
 </section>
 </section>
+<section >
+<section >
+<h1>Sample Application</h1>
+<p>Log parser</p>
+</section>
+<section >
+<p>Sample web server log from <a href="http://ita.ee.lbl.gov/html/contrib/NASA-HTTP.html">NASA</a></p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="n">199.72</span><span class="o">.</span><span class="n">81.55</span> <span class="o">-</span> <span class="o">-</span> [<span class="n">01</span><span class="o">/</span><span class="i">Jul</span><span class="o">/</span><span class="n">19..</span><span class="o">.</span>] <span class="s">&quot;GET /his... HTTP/1.0&quot;</span> <span class="n">200</span> <span class="n">6245</span>
+<span class="i">unicomp6</span><span class="o">.</span><span class="i">unicomp</span><span class="o">.</span><span class="i">net</span> <span class="o">-</span> <span class="o">-</span> [<span class="n">0..</span><span class="o">.</span>] <span class="s">&quot;GET /shuttle/countdown...&quot;</span> <span class="n">200</span> <span class="n">3985</span>
+<span class="n">199.120</span><span class="o">.</span><span class="n">110.21</span> <span class="o">-</span> <span class="o">-</span> [<span class="n">01</span><span class="o">/</span><span class="i">Jul</span><span class="o">/...</span>] <span class="s">&quot;GET /shuttle/missions/...&quot;</span> <span class="n">200</span> <span class="n">4085</span>
+<span class="i">burger</span><span class="o">.</span><span class="i">letters</span><span class="o">.</span><span class="i">com</span> <span class="o">-</span> <span class="o">-</span> [<span class="n">01</span><span class="o">/...</span>] <span class="s">&quot;GET /shuttle/countdown...0&quot;</span> <span class="n">304</span> <span class="n">0</span>
+<span class="n">199.120</span><span class="o">.</span><span class="n">110.21</span> <span class="o">-</span> <span class="o">-</span> [<span class="n">01</span><span class="o">/</span><span class="i">Jul</span><span class="o">/...</span>] <span class="s">&quot;GET /shuttle/missions/...&quot;</span> <span class="n">200</span> <span class="n">4179</span>
+<span class="i">burger</span><span class="o">.</span><span class="i">letters</span><span class="o">.</span><span class="i">com</span> <span class="o">-</span> <span class="o">-</span> [<span class="n">01</span><span class="o">/...</span><span class="n">0400</span>] <span class="s">&quot;GET /images/NASA-l...&quot;</span> <span class="n">304</span> <span class="n">0</span>
+<span class="i">burger</span><span class="o">.</span><span class="i">letters</span><span class="o">.</span><span class="i">com</span> <span class="o">-</span> <span class="o">-</span> [<span class="n">01</span><span class="o">/...</span>] <span class="s">&quot;GET /shuttle/countdown...&quot;</span> <span class="n">200</span> <span class="n">0</span>
+</code></pre></td>
+</tr>
+</table>
+</section>
+<section >
+<h2>Functionality</h2>
+<ul>
+<li>Load file</li>
+<li>Non-blocking</li>
+<li>Show top x rows</li>
+<li>Filter rows based on url and request time</li>
+</ul>
+</section>
+<section >
+<h2>Example 5 - Application</h2>
+</section>
+</section>
 
 
         </div>
