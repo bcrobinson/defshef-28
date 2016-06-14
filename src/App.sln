@@ -16,6 +16,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Example2.Observables", "Exa
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Example3.Stores", "Example3.Stores\Example3.Stores.fsproj", "{57A7E114-6F43-4F75-969C-9072CD2A0427}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Example4.Actions", "Example4.Actions\Example4.Actions.fsproj", "{2563C683-3902-4FE8-851F-65B2E3CB23D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -38,6 +40,10 @@ Global
 		{57A7E114-6F43-4F75-969C-9072CD2A0427}.Debug|x86.Build.0 = Debug|x86
 		{57A7E114-6F43-4F75-969C-9072CD2A0427}.Release|x86.ActiveCfg = Release|x86
 		{57A7E114-6F43-4F75-969C-9072CD2A0427}.Release|x86.Build.0 = Release|x86
+		{2563C683-3902-4FE8-851F-65B2E3CB23D4}.Debug|x86.ActiveCfg = Debug|x86
+		{2563C683-3902-4FE8-851F-65B2E3CB23D4}.Debug|x86.Build.0 = Debug|x86
+		{2563C683-3902-4FE8-851F-65B2E3CB23D4}.Release|x86.ActiveCfg = Release|x86
+		{2563C683-3902-4FE8-851F-65B2E3CB23D4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

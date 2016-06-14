@@ -343,3 +343,83 @@ Putting this all together to create domain specific types
 
 ## Example 3 - Stores
 
+***
+
+## Actions
+
+So we can update from UI interactions
+But how do we interact with business logic (e.g. read files, call http methods)
+
+---
+
+Calls onto the model should always be asynschronous (don't block UI)
+
+We can model this with observables
+
+####
+    // all model calls must have signature
+    'a -> IObvservable<'b>
+
+So the model will:
+
+1. do work in the background
+1. then call OnNext on stream to return value
+1. (can also return multiple values)
+
+---
+
+## The action type
+
+####
+    type Action<'a, 'b> =
+        | Action of ('a -> Store<'b>)
+
+How to use it
+####
+    let getModelData count =
+        observe {
+            for i in 0..count do
+                yield count
+        } |> Store
+
+    let getModelDataAction = Action(getModelData)
+
+    let modelStore =
+        numberSore |> Store.connectToAction getModelDataAction
+
+```
+val modelStore : Store<int>
+```
+
+---
+
+#### But what does the output stream look like?
+
+####
+    getData 3
+
+```
+3
+3
+3
+```
+
+---
+
+#### What happens when the action is called before the previous stream has finished?
+
+[Combining Sequences - IntoToRx.Com](http://www.introtorx.com/content/v1.0.10621.0/12_CombiningSequences.html)
+
+We use Observable.Switch which will return output from last stream
+
+```
+getData --1--2--3---|
+Stream1  -1|
+Stream2      -2---2|
+Stream3         -3--3---3|
+Outout  --1---2--3--3---3|
+```
+
+---
+
+## Example 4 - Actions

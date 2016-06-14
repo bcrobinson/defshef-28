@@ -99,17 +99,35 @@ module Observable =
     let throttle (timespan : TimeSpan) observable = Observable.Throttle(observable, timespan)
     
     type ObservableBuilder() = 
-        member __.Bind(m : IObservable<_>, f : _ -> IObservable<_>) = m.SelectMany(f)
-        member __.Combine(comp1, comp2) = Observable.Concat(comp1, comp2)
-        member __.Delay(f : _ -> IObservable<_>) = Observable.Defer(fun _ -> f())
-        member __.Zero() = Observable.Empty(Scheduler.CurrentThread :> IScheduler)
-        member __.For(sequence, body) = Observable.For(sequence, Func<_, _> body)
-        member __.TryWith(m : IObservable<_>, h : #exn -> IObservable<_>) = Observable.Catch(m, h)
-        member __.TryFinally(m, compensation) = Observable.Finally(m, Action compensation)
+        member __.Bind(m : IObservable<_>, f : _ -> IObservable<_>) = 
+            m.SelectMany(f)
+
+        member __.Combine(comp1, comp2) = 
+            Observable.Concat(comp1, comp2)
+        
+        member __.Delay(f : _ -> IObservable<_>) = 
+            Observable.Defer(fun _ -> f())
+        
+        member __.Zero() = 
+            Observable.Empty(Scheduler.CurrentThread :> IScheduler)
+        
+        member __.For(sequence, body) = 
+            Observable.For(sequence, Func<_, _> body)
+        
+        member __.TryWith(m : IObservable<_>, h : #exn -> IObservable<_>) = 
+            Observable.Catch(m, h)
+        
+        member __.TryFinally(m, compensation) = 
+            Observable.Finally(m, Action compensation)
+        
         member __.Using(res : #IDisposable, body) = 
             Observable.Using((fun () -> res), Func<_, _> body)
-        member __.While(guard, m : IObservable<_>) = Observable.While(Func<_> guard, m)
+
+        member __.While(guard, m : IObservable<_>) = 
+            Observable.While(Func<_> guard, m)
+        
         member __.Yield(x) = Observable.Return(x, Scheduler.CurrentThread)
+        
         member __.YieldFrom m : IObservable<_> = m
     
     let observe = ObservableBuilder()

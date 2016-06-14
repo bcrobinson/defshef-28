@@ -22,6 +22,10 @@ type StoreUpdate<'a> =
 type Store<'a> =
     | Store of IObservable<'a>
 
+type Action<'a, 'b> =
+    | Action of ('a -> Store<'b>)
+
+
 module Store =
     let createStore<'a when 'a : equality> initialState =
         let subject = new Subject<Update<'a>>()
@@ -46,6 +50,15 @@ module Store =
         (obsA, obsB) 
         |> Observable.combineLatest2 (fun (a, b) -> fn a b)
         |> Store
+
+    let connectToUpdate (StoreUpdate(update)) (Store(s)) =
+        s |> Observable.subscribe(fun i -> update (Update(fun _ -> i)))
+
+    let connectToAction (Action(f)) (Store(s)) =
+        let obs = s |> Observable.switch (fun a -> 
+            let (Store(o)) = f a
+            o)
+        Store(obs)
 
     let subscribe f (Store(s)) =
         s 
